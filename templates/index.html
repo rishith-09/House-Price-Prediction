@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Predictor</title>
+</head>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body{
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+        .container{
+            max-width: 700px;
+            width: 100%;
+            background: #fff;
+            padding: 25px 30px;
+            border-radius: 5px;
+        }
+        .container .title{
+            font-size: 25px;
+            font-weight: 500;
+            position: relative;
+            align-items: center;
+        }
+        .container .title::before{
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 30px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+        .container form .user-details{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0 12px 0;
+        }
+        form .user-details .input{
+            margin-bottom: 15px;
+            width: calc(100% / 2 - 20px);
+        }
+        .user-details .input .details{
+            display: block;
+            font-weight: 550;
+            margin-bottom: 5px;
+        }
+        .user-details .input input{
+            height: 23px;
+            width: 90%;
+            outline: none;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding-left: 15px;
+            font-size: 14px;
+        }
+
+
+        select{
+            font-weight: 100;
+            border-radius: 5px;
+            height: 23px;
+            width: 90%;
+            outline: none;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        
+        
+        form .button{
+            height: 45px;
+            margin: 45px 0;
+        }
+        form .button input{
+            height: 100%;
+            width: 100%;
+            outline: none;
+            color: #fff;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            border-radius: 5px;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        form .button input:hover{
+            background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+        }
+        @media (max-width: 584px){
+            .container{
+                max-width: 100%;
+            }
+            form .user-details .input{
+                margin-bottom: 15px;
+                width: 100;
+            }
+        }
+    </style>
+</head> 
+<body>
+    <div class="container">
+        <div class="title"><strong>House Price Predictor</strong></div>
+
+        <br/>
+        <form action="{{url_for('predict')}}" method="post">
+            
+            <div class="user-details">
+                
+                <div class="input">
+                    <span class="details">Area</span>
+                    <input type="text" id="area" name="area" placeholder="Enter area in sqft" required/>
+                </div>
+
+                <div class="input">
+                    <span class="details">Bedrooms</span>
+                    <select id="bedroom" name="bedroom" required>
+                        <option value="" selected hidden disabled>Number of Bedrooms</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+
+                <div class="input">
+                    <span class="details">Bathrooms</span>
+                    <select id="bathrooms" name="bathrooms" required>
+                        <option value="" selected hidden disabled>Number of Bathrooms</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+
+                <div class="input">
+                    <span class="details">Floors</span>
+                    <select id="stories" name="stories" required>
+                        <option value="" selected hidden disabled>Number of Stories</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                </div>
+
+                <div class="input">
+                    <span class="details">Mainroad</span>
+                    <select id="mainroad" name="mainroad" required>
+                        <option value="" selected hidden disabled>Mainroad</option>
+                        <option value="yes">YES</option>
+                        <option value="no">NO</option>
+                    </select>
+                </div>
+
+                <div class="input">
+                    <span class="details">Guestroom</span>
+                    <select id="guestroom" name="guestroom" required>
+                        <option value="" selected hidden disabled>Guestroom</option>
+                        <option value="yes">YES</option>
+                        <option value="no">NO</option>
+                    </select>
+                </div>
+
+                <div class="input">
+                    <span class="details">Basement</span>
+                    <select id="basement" name="basement" required>
+                        <option value="" selected hidden disabled>Basement</option>
+                        <option value="yes">YES</option>
+                        <option value="no">NO</option>
+                    </select>
+                </div>
+
+                <div class="input">
+                    <span class="details">Water Heater</span>
+                    <select id="hotwaterheating" name="hotwaterheating" required>
+                        <option value="" selected hidden disabled>Water Heater</option>                        
+                        <option value="yes">YES</option>
+                        <option value="no">NO</option>
+                    </select>
+                </div>
+
+                <div class="input">
+                    <span class="details">Air Conditioned</span>
+                    <select id="airconditioning" name="airconditioning" required>
+                        <option value="" selected hidden disabled>Air Conditioned</option>
+                        <option value="yes">YES</option>
+                        <option value="no">NO</option>
+                    </select>
+                </div>
+
+                <div class="input">
+                    <span class="details">Parking</span>
+                    <select id="parking" name="parking" required>
+                        <option value="" selected hidden disabled>Number of Parking</option>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+
+                <div class="input">
+                    <span class="details">Preffered Area</span>
+                    <select id="prefarea" name="prefarea" required>
+                        <option value="" selected hidden disabled>Preffered Area</option>
+                        <option value="yes">YES</option>
+                        <option value="no">NO</option>
+                    </select>
+                </div>
+
+                <div class="input">
+                    <span class="details">Furnishing</span>
+                    <select id="furnishingstatus" name="furnishingstatus" required>
+                        <option value="" selected hidden disabled>Furnishing Status</option>
+                        <option value="furnished">Furnished</option>
+                        <option value="semi-furnished">Semi-Furnished</option>
+                        <option value="unfurnished">unfurnished</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="button">
+                <input type="submit" value="Predict">
+            </div>
+        </form>
+        <h3><b>{{prediction_text}}</b></h3>
+    </div>
+</body>
+</html>
